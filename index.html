@@ -103,10 +103,10 @@
         </div>
 
         <div class="ui pointing secondary menu">
-          <a class="active item" data-tab="search">Search</a>
-          <a class="item" data-tab="category">Category</a>
+          <a class="item" data-tab="search">Search</a>
+          <a class="active item" data-tab="category">Category</a>
         </div>
-        <div class="ui tab" data-tab="category">
+        <div class="ui active tab" data-tab="category">
 
           <div class="ui list">
             <item class="item"
@@ -118,7 +118,7 @@
           </div>
 
         </div>
-        <div class="ui active tab" data-tab="search">
+        <div class="ui tab" data-tab="search">
 
           <div class="ui relaxed divided list">
             <item-content class="item" v-for="link in filtered" :link="link" :query="query" :setquery="setquery"></item-content>
