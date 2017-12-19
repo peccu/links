@@ -93,7 +93,7 @@
       </ul>
       <div class="ui top attached">
         <div class="ui center aligned container">
-          <div class="ui icon input large">
+          <div class="ui icon input">
             <input placeholder="Filter..." type="text" v-model="query" autofocus>
             <i class="search icon"></i>
           </div>
@@ -108,7 +108,7 @@
         </div>
         <div class="ui tab" data-tab="category">
 
-          <div class="ui big list">
+          <div class="ui list">
             <item class="item"
                   :category="category"
                   :query="query"
@@ -120,7 +120,7 @@
         </div>
         <div class="ui active tab" data-tab="search">
 
-          <div class="ui big relaxed divided list">
+          <div class="ui relaxed divided list">
             <item-content class="item" v-for="link in filtered" :link="link" :query="query" :setquery="setquery"></item-content>
           </div>
 
