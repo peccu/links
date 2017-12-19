@@ -45,7 +45,7 @@
     </script>
 
     <script type="text/x-template" id="item-template">
-      <div class="item">
+      <div class="item" v-if="filtered.length > 0 || Object.keys(model.children).length > 0">
         <template v-if="isFolder"> <i class="folder icon" :class="{open: isOpen}" @click="toggle" @dblclick="changeType" style="cursor: pointer;"></i></template>
         <template v-else> <i class="file icon" @click="toggle" @dblclick="changeType" style="cursor: pointer;"></i></template>
         <div class="content">
