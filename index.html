@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>リンク集(to purge memory)</title>
+    <link rel="stylesheet" href="./vendor/css/semantic.min.css">
+  </head>
+  <body>
+    <script type="text/x-template" id="content-template">
+      <div class="dimmable" v-if="filter(link)">
+        <i class="linkify icon"></i>
+        <div class="content">
+          <a class="header" :href="link.url" :target="link.target">{{link.title}}</a>
+          <div class="description">
+            <div v-html="link.description"></div>
+            <div class="ui">
+              <a v-for="key in link.keyword" class="ui tiny tag label" @click="addTag(key)">{{key}}</a>
+            </div>
+
+            <div class="ui breadcrumb" style="margin: 10px 0px">
+              <div v-for="path in link.category">
+                Path: <span v-for="(key, index) in path">
+                  <a class="section" @click="addTag(key)">{{key}}</a>
+                  <i v-if="path.length - index > 1" class="right angle icon divider"></i>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="ui horizontal link list" v-if="link.active.from || link.active.to">
+            <div class="item">運用期間</div>
+            <div class="item" v-if="link.active.from">
+              {{ymd(link.active.from)}}
+            </div>
+            <div class="item">
+              〜
+            </div>
+            <div class="item" v-if="link.active.to">
+              {{ymd(link.active.to)}}
+            </div>
+          </div>
+        </div>
+        <div v-if="!isActive(link.active)" class="ui dimmer transition visible active" style="display: block !important; opacity: 0.2; pointer-events: none;"></div>
+      </div>
+    </script>
+
+    <script type="text/x-template" id="item-template">
+      <div class="item">
+        <template v-if="isFolder"> <i class="folder icon" :class="{open: isOpen}" @click="toggle" @dblclick="changeType" style="cursor: pointer;"></i></template>
+        <template v-else> <i class="file icon" @click="toggle" @dblclick="changeType" style="cursor: pointer;"></i></template>
+        <div class="content">
+          <div v-if="isFolder" class="header" @click="toggle" @dblclick="changeType" style="cursor: pointer;">{{category}}</div>
+          <div class="list" v-show="isOpen" v-if="isFolder">
+            <item class="item"
+                  v-for="(model, category) in model.children"
+                  :category="category"
+                  :query="query"
+                  :setquery="setquery"
+                  :model="model">
+            </item>
+            <!-- <li class="add" @click="addChild"><i class="plus icon"></i></li> -->
+          </div>
+          <div class="ui divided list">
+            <item-content class="item" v-show="isOpen" v-for="link in model.contents" :link="link" :query="query" :setquery="setquery"></item-content>
+          </div>
+        </div>
+      </div>
+    </script>
+
+    <div id="app" class="ui container segment loading">
+      <div v-for="window in windows" v-if="false">
+        <pre v-for="link in window.links">
+  {
+    title: '{{link.title.replace(/'/, '\\\'')}}',
+    description: '',
+    keyword: [],
+    category: [
+      ['{{window.name}}']
+    ],
+    active: {},
+    target: '_blank',
+    url: '{{link.url}}'
+  },
+        </pre>
+      </div>
+
+      <ul v-if="false">
+        <li v-for="window in windows">{{window.name}}
+          <ul>
+            <li v-for="link in window.links"><a :href="link.url" target="_blank">{{link.title}}</a></li>
+          </ul>
+        </li>
+      </ul>
+      <div class="ui top attached">
+        <div class="ui center aligned container">
+          <div class="ui icon input large">
+            <input placeholder="Filter..." type="text" v-model="query" autofocus>
+            <i class="search icon"></i>
+          </div>
+          <div class="ui header" v-if="query !== ''">
+            [title, description, keyword, category]<span v-for="q in query.split(/ /)">.match(/{{q}}/ig)</span>
+          </div>
+        </div>
+
+        <div class="ui pointing secondary menu">
+          <a class="active item" data-tab="search">Search</a>
+          <a class="item" data-tab="category">Category</a>
+        </div>
+        <div class="ui tab" data-tab="category">
+
+          <div class="ui big list">
+            <item class="item"
+                  :category="category"
+                  :query="query"
+                  :setquery="setquery"
+                  :model="treeData">
+            </item>
+          </div>
+
+        </div>
+        <div class="ui active tab" data-tab="search">
+
+          <div class="ui big relaxed divided list">
+            <item-content class="item" v-for="link in filtered" :link="link" :query="query" :setquery="setquery"></item-content>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+    <script src="./loader.js"></script>
+  </body>
+</html>
