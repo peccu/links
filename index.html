@@ -68,22 +68,6 @@
     </script>
 
     <div id="app" class="ui container segment loading">
-      <div v-for="window in windows" v-if="false">
-        <pre v-for="link in window.links">
-  {
-    title: '{{link.title.replace(/'/, '\\\'')}}',
-    description: '',
-    keyword: [],
-    category: [
-      ['{{window.name}}']
-    ],
-    active: {},
-    target: '_blank',
-    url: '{{link.url}}'
-  },
-        </pre>
-      </div>
-
       <ul v-if="false">
         <li v-for="window in windows">{{window.name}}
           <ul>

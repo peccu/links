@@ -226,7 +226,6 @@ var app = new Vue({
     fetched: false,
     query: '',
     links: window.links,
-    windows: window.windows,
     treeData: generateTree(window.links),
     category: 'リンク集'
   },
