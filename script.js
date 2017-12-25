@@ -15,6 +15,7 @@ var linkFilter = function(query){
   return function(link){
     if(!regex){return true;}
     var result = link.title.match(regex) ||
+        link.url.match(regex) ||
         link.description.match(regex) ||
         link.keyword.reduce(function(acc, e){
           return acc || e.match(regex);
