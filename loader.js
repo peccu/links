@@ -17,15 +17,17 @@ const loader = function(queue, cb){
 const isLocal = location.protocol == 'file:';
 const vendorDir = './vendor/js/';
 
-
 const parallel = [
   {src: (isLocal ? vendorDir : '//cdn.jsdelivr.net/npm/vue@2/dist/') + 'vue.min.js', useCache: true},
+  {src: (isLocal ? vendorDir : '//cdn.jsdelivr.net/npm/remotestoragejs@1.0.2/release/') + 'remotestorage.min.js', useCache: true},
+  {src: (isLocal ? vendorDir : '//cdn.jsdelivr.net/npm/remotestorage-widget@1.3.0/build/') + 'widget.min.js', useCache: true},
   {src: (isLocal ? vendorDir : '//cdn.jsdelivr.net/npm/jquery@3/dist/') + 'jquery.min.js', useCache: true}
 ];
 var finish = parallel.length;
 const queue = [
   {src: (isLocal ? vendorDir : '//cdn.jsdelivr.net/npm/semantic-ui@2/dist/') + 'semantic.min.js', useCache: true},
   {src: './links.js', useCache: false},
+  {src: './rs.js', useCache: false},
   {src: './script.js', useCache: false},
 ];
 
