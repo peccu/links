@@ -68,13 +68,6 @@
     </script>
 
     <div id="app" class="ui container segment loading">
-      <ul v-if="false">
-        <li v-for="window in windows">{{window.name}}
-          <ul>
-            <li v-for="link in window.links"><a :href="link.url" target="_blank">{{link.title}}</a></li>
-          </ul>
-        </li>
-      </ul>
       <div class="ui top attached">
         <div class="ui center aligned container">
           <div class="ui icon input">
