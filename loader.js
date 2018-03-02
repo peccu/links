@@ -26,7 +26,6 @@ const parallel = [
 var finish = parallel.length;
 const queue = [
   {src: (isLocal ? vendorDir : '//cdn.jsdelivr.net/npm/semantic-ui@2/dist/') + 'semantic.min.js', useCache: true},
-  {src: './links.js', useCache: false},
   {src: './rs.js', useCache: false},
   {src: './script.js', useCache: false},
 ];

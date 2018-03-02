@@ -180,15 +180,17 @@ var app = new Vue({
   components: {
   },
   computed: {
-    filtered: function () {
-      return filteredList(this.links, this.query);
+    filtered: function(){
+      return filteredList(this.state.links, this.query);
+    },
+    treeData: function(){
+      return generateTree(this.state.links);
     }
   },
   data: {
     fetched: false,
     query: '',
-    links: window.links,
-    treeData: generateTree(window.links),
+    state: window.LinkStore.state,
     category: 'リンク集'
   },
   watch: {
@@ -196,11 +198,13 @@ var app = new Vue({
   beforeCreate: function(){
   },
   created: function(){
+    window.LinkStore.setup(() => {
+      document.getElementById(mountpoint).classList.remove('loading');
+    });
   },
   beforeMount: function(){
   },
   mounted: function(){
-    document.getElementById(mountpoint).classList.remove('loading');
     $('.menu .item').tab();
   },
   beforeUpdate: function(){
