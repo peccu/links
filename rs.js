@@ -41,6 +41,7 @@
 
   const builder = function(privateClient, publicClient){
     privateClient.declareType('archive-link', linkType);
+    privateClient.cache('archive/', 'ALL');
     return {
       exports: {
         getAll: function(){
