@@ -259,7 +259,7 @@ if(window.location.pathname.match(/\/add\//)){
   };
 }
 
-if(window.location.pathname.match(/^\/$/)){
+if(window.location.pathname.match(/^\/links\/$/) || window.location.pathname.match(/^\/$/)){
   mountpoint = 'list';
   opt = {
     el: '#' + mountpoint,
