@@ -48,6 +48,11 @@
             return objects;
           });
         },
+        get: function(url){
+          var linkId = MD5(url); // hash URL for nice ID
+          var path = 'archive/' + linkId; // use hashed URL as filename as well
+          return privateClient.getObject(path);
+        },
         add: function(link){
           link.id = MD5(link.url); // hash URL for nice ID
           var path = 'archive/' + link.id; // use hashed URL as filename as well
@@ -121,6 +126,12 @@
         this.setter = genSetter(this, cb);
       }
       this.storage.links.getAll().then(this.setter);
+    },
+    getAction(url, cb){
+      if(this.debug){
+        console.log('getAction called');
+      }
+      this.storage.links.get(url).then(cb);
     },
     addLinksAction(link){
       if(this.debug){
