@@ -173,6 +173,92 @@ Vue.component('itemContent', {
 });
 var mountpoint;
 var opt;
+if(window.location.pathname.match(/\/add\//)){
+  mountpoint = 'add';
+  console.log('mountpoint', mountpoint);
+  var template = {
+    title: '',
+    url: '',
+    description: '',
+    keyword: '[]',
+    category: '[[""]]',
+    active: {
+    },
+    target: '_blank'
+  };
+  var parsedLink = location.search.replace(/^\?/, '').split('&').reduce(function(acc, e){
+    let [ key, value ] = e.split('=');
+    acc[key] = value ? decodeURIComponent(value.replace(/\+/g, ' ')) : '';
+    return acc;
+  }, template);
+  opt = {
+    el: '#' + mountpoint,
+    props: [
+    ],
+    components: {
+    },
+    computed: {
+      bookmarklet: function(){
+        var base = location.origin + location.pathname;
+        return "javascript:window.open('" + base + "?title='+encodeURIComponent(document.title)+'&url='+encodeURIComponent(location.href))";
+      }
+    },
+    data: {
+      link: parsedLink
+    },
+    watch: {
+    },
+    beforeCreate: function(){
+    },
+    created: function(){
+      var view = this;
+      var cb = function(){
+        window.LinkStore.getAction(parsedLink.url, function(link){
+          if(link){
+            console.log('fetched link', link);
+            link.keyword = JSON.stringify(link.keyword);
+            link.category = JSON.stringify(link.category);
+            view.link = link;
+          }else{
+            console.log('new link');
+          }
+          document.getElementById(mountpoint).classList.remove('loading');
+        });
+      };
+      window.LinkStore.setup(cb);
+    },
+    beforeMount: function(){
+    },
+    mounted: function(){
+    },
+    beforeUpdate: function(){
+    },
+    updated: function(){
+    },
+    beforeDestroy: function(){
+    },
+    destroyed: function(){
+    },
+    methods: {
+      onSubmit: function(event){
+        this.link.keyword = JSON.parse(this.link.keyword.replace(/'/g, '"'));
+        this.link.category = JSON.parse(this.link.category.replace(/'/g, '"'));
+        document.getElementById('submit').classList.add('loading');
+        var view = this;
+        window.LinkStore.addLinksAction(this.link)
+          .then(() => {
+            console.log('success in addLinksAction');
+            window.close();
+          })
+          .catch((err) => {
+            document.getElementById('submit').classList.remove('loading');
+            view.error = JSON.stringify(err);
+          });
+      }
+    }
+  };
+}
+
 if(window.location.pathname.match(/^\/$/)){
   mountpoint = 'list';
   opt = {

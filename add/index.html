@@ -1,0 +1,60 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Add Link</title>
+    <link rel="stylesheet" href="../vendor/css/semantic.min.css">
+  </head>
+  <body>
+    <div id="remoteStorage" style="position: absolute; z-index: 200;"></div>
+    <div id="add" class="ui container segment loading">
+
+      <form v-on:submit.prevent="onSubmit">
+        <div class="ui form">
+          <div class="field">
+            <label>Title</label>
+            <input placeholder="Title" type="text" v-model="link.title" @keyup.enter="onSubmit">
+          </div>
+          <div class="field">
+            <label>URL</label>
+            <input placeholder="URL" type="text" v-model="link.url" @keyup.enter="onSubmit">
+          </div>
+          <div class="field">
+            <label>Description</label>
+            <textarea v-model="link.description"></textarea>
+          </div>
+          <div class="field">
+            <label>Keywords</label>
+            <input placeholder="Keywords" type="text" v-model="link.keyword" @keyup.enter="onSubmit">
+          </div>
+          <div class="field">
+            <label>Category</label>
+            <input placeholder="Category" type="text" v-model="link.category" @keyup.enter="onSubmit">
+          </div>
+          <div class="field">
+            <label>Target</label>
+            <input placeholder="Target" type="text" v-model="link.target" @keyup.enter="onSubmit">
+          </div>
+          <div class="ui submit button" @click="onSubmit" id="submit">Save</div>
+        </div>
+      </form>
+
+      <div class="ui segment">
+
+        <div class="ui header">
+          Bookmarklet
+        </div>
+
+        <div class="ui button">
+          <a :href="bookmarklet">
+            Add Link
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+    <script src="../loader.js" onload="loadFrom('../');"></script>
+  </body>
+</html>
