@@ -74,6 +74,7 @@
             <input placeholder="Filter..." type="text" v-model="query" autofocus>
             <i class="search icon"></i>
           </div>
+          <div class="ui submit button" id="reload" @click="reload">reload</div>
           <div class="ui header" v-if="query !== ''">
             [title, description, url, keyword, category]<span v-for="q in query.split(/ /)">.match(/{{q}}/ig)</span>
           </div>

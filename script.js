@@ -222,6 +222,12 @@ if(window.location.pathname.match(/^\/$/)){
     methods: {
       setquery: function(query){
         this.query = query;
+      },
+      reload: function(){
+        document.getElementById('reload').classList.add('loading');
+        window.LinkStore.getAllAction(function(){
+          document.getElementById('reload').classList.remove('loading');
+        });
       }
     }
   };
