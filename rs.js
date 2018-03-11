@@ -111,9 +111,7 @@
     setup(cb){
       // console.log('setup called');
       const store = this;
-      this.storage = setUpStorage('remoteStorage', () => {
-        return store.getAllAction(cb);
-      });
+      this.storage = setUpStorage('remoteStorage', cb);
     },
     getAllAction(cb){
       if(this.debug){
@@ -128,10 +126,9 @@
       if(this.debug){
         console.log('addLinksAction triggered with', link);
       }
-      this.storage.links.add(link)
+      return this.storage.links.add(link)
       .then(() => {
         console.log('success in addLinksAction');
-        this.getAllAction();
       })
       .catch((err) => {
         console.error('validation error in addLinksAction:', err);

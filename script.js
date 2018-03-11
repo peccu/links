@@ -171,53 +171,60 @@ Vue.component('itemContent', {
     }
   }
 });
-
-const mountpoint = 'app';
-var app = new Vue({
-  el: '#' + mountpoint,
-  props: [
-  ],
-  components: {
-  },
-  computed: {
-    filtered: function(){
-      return filteredList(this.state.links, this.query);
+var mountpoint;
+var opt;
+if(window.location.pathname.match(/^\/$/)){
+  mountpoint = 'list';
+  opt = {
+    el: '#' + mountpoint,
+    props: [
+    ],
+    components: {
     },
-    treeData: function(){
-      return generateTree(this.state.links);
+    computed: {
+      filtered: function(){
+        return filteredList(this.state.links, this.query);
+      },
+      treeData: function(){
+        return generateTree(this.state.links);
+      }
+    },
+    data: {
+      fetched: false,
+      query: '',
+      state: window.LinkStore.state,
+      category: 'リンク集'
+    },
+    watch: {
+    },
+    beforeCreate: function(){
+    },
+    created: function(){
+      window.LinkStore.setup(function(){
+        window.LinkStore.getAllAction(function(){
+          document.getElementById(mountpoint).classList.remove('loading');
+        });
+      });
+    },
+    beforeMount: function(){
+    },
+    mounted: function(){
+      $('.menu .item').tab();
+    },
+    beforeUpdate: function(){
+    },
+    updated: function(){
+    },
+    beforeDestroy: function(){
+    },
+    destroyed: function(){
+    },
+    methods: {
+      setquery: function(query){
+        this.query = query;
+      }
     }
-  },
-  data: {
-    fetched: false,
-    query: '',
-    state: window.LinkStore.state,
-    category: 'リンク集'
-  },
-  watch: {
-  },
-  beforeCreate: function(){
-  },
-  created: function(){
-    window.LinkStore.setup(() => {
-      document.getElementById(mountpoint).classList.remove('loading');
-    });
-  },
-  beforeMount: function(){
-  },
-  mounted: function(){
-    $('.menu .item').tab();
-  },
-  beforeUpdate: function(){
-  },
-  updated: function(){
-  },
-  beforeDestroy: function(){
-  },
-  destroyed: function(){
-  },
-  methods: {
-    setquery: function(query){
-      this.query = query;
-    }
-  }
-});
+  };
+}
+
+var app = new Vue(opt);
