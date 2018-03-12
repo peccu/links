@@ -263,6 +263,9 @@ if(window.location.pathname.match(/\/add\//)){
             console.log('success in addLinksAction');
             document.getElementById('submit').classList.remove('loading');
             view.success = true;
+            Vue.nextTick(function(){
+              document.getElementById('close').focus();
+            });
           })
           .catch((err) => {
             document.getElementById('submit').classList.remove('loading');
