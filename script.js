@@ -215,23 +215,7 @@ if(window.location.pathname.match(/\/add\//)){
     created: function(){
       var view = this;
       var cb = function(){
-        window.LinkStore.getAction(parsedLink.url)
-          .then((link) => {
-            if(link){
-              console.log('fetched link', link);
-              link.keyword = JSON.stringify(link.keyword);
-              link.category = JSON.stringify(link.category);
-              view.link = link;
-            }else{
-              console.log('new link');
-            }
-            document.getElementById(mountpoint).classList.remove('loading');
-            return link;
-          })
-          .catch((err) => {
-            console.log('error', err);
-            return err;
-          });
+        view.load(parsedLink.url);
       };
       window.LinkStore.setup(cb);
     },
@@ -248,6 +232,27 @@ if(window.location.pathname.match(/\/add\//)){
     destroyed: function(){
     },
     methods: {
+      load: function(){
+        console.log('fetch link', this.link.url);
+        var view = this;
+        window.LinkStore.getAction(this.link.url)
+          .then((link) => {
+            if(link){
+              console.log('fetched link', link);
+              link.keyword = JSON.stringify(link.keyword);
+              link.category = JSON.stringify(link.category);
+              view.link = link;
+            }else{
+              console.log('new link');
+            }
+            document.getElementById(mountpoint).classList.remove('loading');
+            return link;
+          })
+          .catch((err) => {
+            console.log('error', err);
+            return err;
+          });
+      },
       onSubmit: function(event){
         this.link.keyword = JSON.parse(this.link.keyword.replace(/'/g, '"'));
         this.link.category = JSON.parse(this.link.category.replace(/'/g, '"'));
