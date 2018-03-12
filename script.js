@@ -296,17 +296,23 @@ if(window.location.pathname.match(/^\/links\/$/) || window.location.pathname.mat
       fetched: false,
       query: '',
       state: window.LinkStore.state,
-      category: 'リンク集'
+      category: 'リンク集',
+      error: ''
     },
     watch: {
     },
     beforeCreate: function(){
     },
     created: function(){
+      var view = this;
       window.LinkStore.setup(function(){
-        window.LinkStore.getAllAction(function(){
+        window.LinkStore.getAllAction().then(function(){
           document.getElementById(mountpoint).classList.remove('loading');
-        });
+        })
+          .catch((err) => {
+            document.getElementById(mountpoint).classList.remove('loading');
+            view.error = JSON.stringify(err);
+          });
       });
     },
     beforeMount: function(){
@@ -327,10 +333,15 @@ if(window.location.pathname.match(/^\/links\/$/) || window.location.pathname.mat
         this.query = query;
       },
       reload: function(){
+        var view = this;
         document.getElementById('reload').classList.add('loading');
-        window.LinkStore.getAllAction(function(){
+        window.LinkStore.getAllAction().then(function(){
           document.getElementById('reload').classList.remove('loading');
-        });
+        })
+          .catch((err) => {
+            document.getElementById('reload').classList.remove('loading');
+            view.error = JSON.stringify(err);
+          });
       }
     }
   };

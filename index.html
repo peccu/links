@@ -68,6 +68,11 @@
 
     <div id="remoteStorage" style="position: absolute; z-index: 200;"></div>
     <div id="list" class="ui container segment loading">
+      <div v-if="error" class="ui negative message">
+        <i class="close icon" @click="error = false"></i>
+        <div class="header">Something is wrong</div>
+        <p>{{error}}</p>
+      </div>
       <div class="ui top attached">
         <div class="ui center aligned container">
           <div class="ui icon input">

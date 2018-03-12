@@ -97,20 +97,9 @@
     return remoteStorage;
   };
 
-  const genSetter = function(store, cb){
-    // console.log('gensetter');
-    return function(links){
-      console.log('link fetched');
-      // console.log('gensetter setter', links);
-      store.state.links = Object.values(links);
-      cb(links);
-    };
-  };
-
   var LinkStore = {
     debug: true,
     storage: null,
-    setter: null,
     state: {
       links: []
     },
@@ -123,12 +112,13 @@
       if(this.debug){
         console.log('getAllAction called');
       }
-      if(!this.setter){
-        this.setter = genSetter(this, cb);
-      }
-      return this.storage.links.getAll().then(this.setter);
+      var store = this;
+      return this.storage.links.getAll().then(function(links){
+        console.log('link fetched');
+        store.state.links = Object.values(links);
+      });
     },
-    getAction(url, cb){
+    getAction(url){
       if(this.debug){
         console.log('getAction called');
       }
