@@ -126,13 +126,13 @@
       if(!this.setter){
         this.setter = genSetter(this, cb);
       }
-      this.storage.links.getAll().then(this.setter);
+      return this.storage.links.getAll().then(this.setter);
     },
     getAction(url, cb){
       if(this.debug){
         console.log('getAction called');
       }
-      this.storage.links.get(url).then(cb);
+      return this.storage.links.get(url);
     },
     addLinksAction(link){
       if(this.debug){
