@@ -215,17 +215,23 @@ if(window.location.pathname.match(/\/add\//)){
     created: function(){
       var view = this;
       var cb = function(){
-        window.LinkStore.getAction(parsedLink.url, function(link){
-          if(link){
-            console.log('fetched link', link);
-            link.keyword = JSON.stringify(link.keyword);
-            link.category = JSON.stringify(link.category);
-            view.link = link;
-          }else{
-            console.log('new link');
-          }
-          document.getElementById(mountpoint).classList.remove('loading');
-        });
+        window.LinkStore.getAction(parsedLink.url)
+          .then((link) => {
+            if(link){
+              console.log('fetched link', link);
+              link.keyword = JSON.stringify(link.keyword);
+              link.category = JSON.stringify(link.category);
+              view.link = link;
+            }else{
+              console.log('new link');
+            }
+            document.getElementById(mountpoint).classList.remove('loading');
+            return link;
+          })
+          .catch((err) => {
+            console.log('error', err);
+            return err;
+          });
       };
       window.LinkStore.setup(cb);
     },
