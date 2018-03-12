@@ -11,7 +11,7 @@
     <div id="add" class="ui container segment loading">
 
       <form v-on:submit.prevent="onSubmit">
-        <div class="ui form">
+        <div class="ui form success error">
           <div class="field">
             <label>Title</label>
             <input placeholder="Title" type="text" v-model="link.title" @keyup.enter="onSubmit">
@@ -35,6 +35,14 @@
           <div class="field">
             <label>Target</label>
             <input placeholder="Target" type="text" v-model="link.target" @keyup.enter="onSubmit">
+          </div>
+          <div v-if="error" class="ui error message">
+            <div class="header">Something is wrong</div>
+            <p>{{error}}</p>
+          </div>
+          <div v-if="success" class="ui success message">
+            <div class="header">Completed</div>
+            <p>Saving is successed.</p>
           </div>
           <div class="ui submit button" @click="onSubmit" id="submit">Save</div>
         </div>

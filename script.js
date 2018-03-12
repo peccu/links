@@ -204,7 +204,9 @@ if(window.location.pathname.match(/\/add\//)){
       }
     },
     data: {
-      link: parsedLink
+      link: parsedLink,
+      error: '',
+      success: false
     },
     watch: {
     },
@@ -248,6 +250,8 @@ if(window.location.pathname.match(/\/add\//)){
         window.LinkStore.addLinksAction(this.link)
           .then(() => {
             console.log('success in addLinksAction');
+            document.getElementById('submit').classList.remove('loading');
+            view.success = true;
             window.close();
           })
           .catch((err) => {
