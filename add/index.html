@@ -45,6 +45,7 @@
             <p>Saving is successed.</p>
           </div>
           <div class="ui submit button" @click="onSubmit" id="submit">Save</div>
+          <div v-if="success || error" class="ui submit button" @click="close">close</div>
         </div>
       </form>
 

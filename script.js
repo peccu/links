@@ -252,12 +252,14 @@ if(window.location.pathname.match(/\/add\//)){
             console.log('success in addLinksAction');
             document.getElementById('submit').classList.remove('loading');
             view.success = true;
-            window.close();
           })
           .catch((err) => {
             document.getElementById('submit').classList.remove('loading');
             view.error = JSON.stringify(err);
           });
+      },
+      close: function(event){
+        window.close();
       }
     }
   };
