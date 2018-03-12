@@ -205,6 +205,7 @@ if(window.location.pathname.match(/\/add\//)){
     },
     data: {
       link: parsedLink,
+      linkLoaded: false,
       error: '',
       success: false
     },
@@ -215,9 +216,17 @@ if(window.location.pathname.match(/\/add\//)){
     created: function(){
       var view = this;
       var cb = function(){
+        console.log('setup completed. Now fetching.');
         view.load(parsedLink.url);
       };
       window.LinkStore.setup(cb);
+      window.setTimeout(() => {
+        if(view.linkLoaded){
+          return;
+        }
+        document.getElementById(mountpoint).classList.remove('loading');
+        view.error = {message: 'timeout'};
+      }, 3000);
     },
     beforeMount: function(){
     },
@@ -246,6 +255,7 @@ if(window.location.pathname.match(/\/add\//)){
               console.log('new link');
             }
             document.getElementById(mountpoint).classList.remove('loading');
+            view.linkLoaded = true;
             return link;
           })
           .catch((err) => {
