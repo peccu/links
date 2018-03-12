@@ -256,6 +256,7 @@ if(window.location.pathname.match(/\/add\//)){
       onSubmit: function(event){
         this.link.keyword = JSON.parse(this.link.keyword.replace(/'/g, '"'));
         this.link.category = JSON.parse(this.link.category.replace(/'/g, '"'));
+        this.link.ts = new Date().getTime().toString();
         document.getElementById('submit').classList.add('loading');
         var view = this;
         window.LinkStore.addLinksAction(this.link)

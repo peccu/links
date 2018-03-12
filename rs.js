@@ -27,6 +27,9 @@
         'type': 'object',
         'default': {}
       },
+      'ts': {
+        'type': 'string'
+      },
       'target': {
         'type': 'string',
         'default': '_blank'
