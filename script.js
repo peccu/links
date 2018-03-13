@@ -256,10 +256,12 @@ if(window.location.pathname.match(/\/add\//)){
             }
             document.getElementById(mountpoint).classList.remove('loading');
             view.linkLoaded = true;
+            view.error = '';
             return link;
           })
           .catch((err) => {
             console.log('error', err);
+            view.error = JSON.stringify(err);
             return err;
           });
       },
