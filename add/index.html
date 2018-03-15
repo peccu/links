@@ -10,49 +10,7 @@
     <div id="remoteStorage" style="position: absolute; z-index: 200;"></div>
     <div id="add" class="ui container segment loading">
 
-      <form v-on:submit.prevent="onSubmit">
-        <div class="ui form success error">
-          <div class="field">
-            <label>Title</label>
-            <input placeholder="Title" type="text" v-model="link.title" @keyup.enter="onSubmit">
-          </div>
-          <div class="field">
-            <label>URL</label>
-            <input placeholder="URL" type="text" v-model="link.url" @keyup.enter="onSubmit">
-          </div>
-          <div class="field">
-            <label>Description</label>
-            <textarea v-model="link.description"></textarea>
-          </div>
-          <div class="field">
-            <label>Keywords</label>
-            <input placeholder="Keywords" type="text" v-model="link.keyword" @keyup.enter="onSubmit">
-          </div>
-          <div class="field">
-            <label>Category</label>
-            <input placeholder="Category" type="text" v-model="link.category" @keyup.enter="onSubmit">
-          </div>
-          <div class="field">
-            <label>Target</label>
-            <input placeholder="Target" type="text" v-model="link.target" @keyup.enter="onSubmit">
-          </div>
-          <div class="field">
-            <label>Updated Date</label>
-            <div>{{new Date(parseFloat(link.ts))}}</div>
-          </div>
-          <div v-if="error" class="ui error message">
-            <div class="header">Something is wrong</div>
-            <p>{{error}}</p>
-          </div>
-          <div v-if="success" class="ui success message">
-            <div class="header">Completed</div>
-            <p>Saving is successed.</p>
-          </div>
-          <div class="ui submit button" @click="onSubmit" id="submit">Save</div>
-          <button v-if="success || error" class="ui submit button" @click="close" id="close">close</button>
-          <div class="ui button" @click="load">reload link</div>
-        </div>
-      </form>
+      <add :link="link"></add>
 
       <div class="ui segment">
 

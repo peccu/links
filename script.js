@@ -176,21 +176,6 @@ var opt;
 if(window.location.pathname.match(/\/add\//)){
   mountpoint = 'add';
   console.log('mountpoint', mountpoint);
-  var template = {
-    title: '',
-    url: '',
-    description: '',
-    keyword: '',
-    category: '[[""]]',
-    active: {
-    },
-    target: '_blank'
-  };
-  var parsedLink = location.search.replace(/^\?/, '').split('&').reduce(function(acc, e){
-    let [ key, value ] = e.split('=');
-    acc[key] = value ? decodeURIComponent(value.replace(/\+/g, ' ')) : '';
-    return acc;
-  }, template);
   opt = {
     el: '#' + mountpoint,
     props: [
@@ -204,29 +189,13 @@ if(window.location.pathname.match(/\/add\//)){
       }
     },
     data: {
-      link: parsedLink,
-      linkLoaded: false,
-      error: '',
-      success: false
+      link: window.parsedLink
     },
     watch: {
     },
     beforeCreate: function(){
     },
     created: function(){
-      var view = this;
-      var cb = function(){
-        console.log('setup completed. Now fetching.');
-        view.load(parsedLink.url);
-      };
-      window.LinkStore.setup(cb);
-      window.setTimeout(() => {
-        if(view.linkLoaded){
-          return;
-        }
-        document.getElementById(mountpoint).classList.remove('loading');
-        view.error = {message: 'timeout'};
-      }, 3000);
     },
     beforeMount: function(){
     },
@@ -241,53 +210,6 @@ if(window.location.pathname.match(/\/add\//)){
     destroyed: function(){
     },
     methods: {
-      load: function(){
-        console.log('fetch link', this.link.url);
-        var view = this;
-        window.LinkStore.getAction(this.link.url)
-          .then((link) => {
-            if(link){
-              console.log('fetched link', link);
-              link.keyword = link.keyword.join(',');
-              link.category = JSON.stringify(link.category);
-              view.link = link;
-            }else{
-              console.log('new link');
-            }
-            document.getElementById(mountpoint).classList.remove('loading');
-            view.linkLoaded = true;
-            view.error = '';
-            return link;
-          })
-          .catch((err) => {
-            console.log('error', err);
-            view.error = JSON.stringify(err);
-            return err;
-          });
-      },
-      onSubmit: function(event){
-        this.link.keyword = this.link.keyword.split(',');
-        this.link.category = JSON.parse(this.link.category.replace(/'/g, '"'));
-        this.link.ts = new Date().getTime().toString();
-        document.getElementById('submit').classList.add('loading');
-        var view = this;
-        window.LinkStore.addLinksAction(this.link)
-          .then(() => {
-            console.log('success in addLinksAction');
-            document.getElementById('submit').classList.remove('loading');
-            view.success = true;
-            Vue.nextTick(function(){
-              document.getElementById('close').focus();
-            });
-          })
-          .catch((err) => {
-            document.getElementById('submit').classList.remove('loading');
-            view.error = JSON.stringify(err);
-          });
-      },
-      close: function(event){
-        window.close();
-      }
     }
   };
 }
