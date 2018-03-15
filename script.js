@@ -13,6 +13,7 @@ var linkFilter = function(query){
     regex = null;
   }
   return function(link){
+    if(!link.url){return false;}
     if(!regex){return true;}
     var result = link.title.match(regex) ||
         link.url.match(regex) ||
@@ -75,6 +76,9 @@ const generateTree = function(links){
     children: {}
   };
   links.map(function(e, i, a){
+    if(!e.category){
+      return;
+    }
     e.category.map(function(path){
       addToTree(data, e, path);
     });

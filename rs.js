@@ -113,7 +113,7 @@
       }
       var store = this;
       return this.storage.links.getAll().then(function(links){
-        console.log('link fetched');
+        console.log('link fetched', links);
         store.state.links = Object.values(links);
       });
     },
