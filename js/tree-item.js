@@ -3,6 +3,13 @@ var zerofill = function(i){
   return ('00' + (i)).slice(-2);
 };
 
+var ymd = function(date){
+  let d = new Date(date);
+  return d.getFullYear() + '/'
+    + zerofill(d.getMonth() + 1) + '/'
+    + zerofill(d.getDate());
+};
+
 var linkFilter = function(query){
   var regex = new RegExp(query, 'ig');
   if(query === ''){
@@ -91,11 +98,6 @@ Vue.component('itemContent', {
       let to = !active.to || today <= (new Date(active.to));
       return from && to;
     },
-    ymd: function(date){
-      let d = new Date(date);
-      return d.getFullYear() + '/'
-        + zerofill(d.getMonth() + 1) + '/'
-        + zerofill(d.getDate());
-    }
+    ymd: ymd
   }
 });
