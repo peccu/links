@@ -7,50 +7,6 @@ var nameMatch = function(target, obj, regex){
   return (target && (obj && obj.name.match(regex)));
 };
 
-var ensureNode = function(tree){
-  if(!tree){
-    tree = {
-      contents: [],
-      children: {}
-    };
-  }
-  return tree;
-};
-var addToTree = function(tree, content, path){
-  tree = ensureNode(tree);
-  if(path.length == 0){
-
-    tree.contents.push(content);
-    return;
-  }
-  if(path.length == 1){
-    tree.children[path[0]] = ensureNode(tree.children[path[0]]);
-
-    tree.children[path[0]].contents.push(content);
-    return;
-  }
-  var current = path[0];
-  tree.children[current] = ensureNode(tree.children[current]);
-
-  addToTree(tree.children[current], content, path.slice(1));
-};
-
-const generateTree = function(links){
-  var data = {
-    contents: [],
-    children: {}
-  };
-  links.map(function(e, i, a){
-    if(!e.category){
-      return;
-    }
-    e.category.map(function(path){
-      addToTree(data, e, path);
-    });
-  });
-  return data;
-};
-
 var mountpoint;
 var opt;
 if(window.location.pathname.match(/\/add\//)){
@@ -107,7 +63,7 @@ if(window.location.pathname.match(/^\/links\/$/) || window.location.pathname.mat
         return window.filteredList(this.state.links, this.query);
       },
       treeData: function(){
-        return generateTree(this.state.links);
+        return window.generateTree(this.state.links);
       }
     },
     data: {
