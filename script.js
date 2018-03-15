@@ -180,7 +180,7 @@ if(window.location.pathname.match(/\/add\//)){
     title: '',
     url: '',
     description: '',
-    keyword: '[]',
+    keyword: '',
     category: '[[""]]',
     active: {
     },
@@ -248,7 +248,7 @@ if(window.location.pathname.match(/\/add\//)){
           .then((link) => {
             if(link){
               console.log('fetched link', link);
-              link.keyword = JSON.stringify(link.keyword);
+              link.keyword = link.keyword.join(',');
               link.category = JSON.stringify(link.category);
               view.link = link;
             }else{
@@ -266,7 +266,7 @@ if(window.location.pathname.match(/\/add\//)){
           });
       },
       onSubmit: function(event){
-        this.link.keyword = JSON.parse(this.link.keyword.replace(/'/g, '"'));
+        this.link.keyword = this.link.keyword.split(',');
         this.link.category = JSON.parse(this.link.category.replace(/'/g, '"'));
         this.link.ts = new Date().getTime().toString();
         document.getElementById('submit').classList.add('loading');
