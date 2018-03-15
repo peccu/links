@@ -7,43 +7,6 @@
     <link rel="stylesheet" href="./vendor/css/semantic.min.css">
   </head>
   <body>
-    <script type="text/x-template" id="content-template">
-      <div class="dimmable" v-if="filter(link)">
-        <i class="linkify icon"></i>
-        <div class="content">
-          <a class="header" :href="link.url" :target="link.target">{{link.title}}</a>
-          <div class="description">
-            <div v-html="link.description"></div>
-            <div class="ui">
-              <a v-for="key in link.keyword" class="ui tiny tag label" @click="addTag(key)">{{key}}</a>
-            </div>
-
-            <div class="ui breadcrumb" style="margin: 10px 0px">
-              <div v-for="path in link.category">
-                Path: <span v-for="(key, index) in path">
-                  <a class="section" @click="addTag(key)">{{key}}</a>
-                  <i v-if="path.length - index > 1" class="right angle icon divider"></i>
-                </span>
-              </div>
-            </div>
-          </div>
-          <div class="ui horizontal link list" v-if="link.active.from || link.active.to">
-            <div class="item">運用期間</div>
-            <div class="item" v-if="link.active.from">
-              {{ymd(link.active.from)}}
-            </div>
-            <div class="item">
-              〜
-            </div>
-            <div class="item" v-if="link.active.to">
-              {{ymd(link.active.to)}}
-            </div>
-          </div>
-        </div>
-        <div v-if="!isActive(link.active)" class="ui dimmer transition visible active" style="display: block !important; opacity: 0.2; pointer-events: none;"></div>
-      </div>
-    </script>
-
     <script type="text/x-template" id="item-template">
       <div class="item" v-if="filtered.length > 0 || Object.keys(model.children).length > 0">
         <div v-if="isFolder" class="header" @click="toggle" @dblclick="changeType" style="cursor: pointer;">

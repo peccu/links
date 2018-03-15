@@ -28,7 +28,42 @@ var linkFilter = function(query){
 
 // define the item component
 Vue.component('itemContent', {
-  template: '#content-template',
+  template: `
+    <div class="dimmable" v-if="filter(link)">
+      <i class="linkify icon"></i>
+      <div class="content">
+        <a class="header" :href="link.url" :target="link.target">{{link.title}}</a>
+        <div class="description">
+          <div v-html="link.description"></div>
+          <div class="ui">
+            <a v-for="key in link.keyword" class="ui tiny tag label" @click="addTag(key)">{{key}}</a>
+          </div>
+
+          <div class="ui breadcrumb" style="margin: 10px 0px">
+            <div v-for="path in link.category">
+              Path: <span v-for="(key, index) in path">
+                <a class="section" @click="addTag(key)">{{key}}</a>
+                <i v-if="path.length - index > 1" class="right angle icon divider"></i>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="ui horizontal link list" v-if="link.active.from || link.active.to">
+          <div class="item">運用期間</div>
+          <div class="item" v-if="link.active.from">
+            {{ymd(link.active.from)}}
+          </div>
+          <div class="item">
+            〜
+          </div>
+          <div class="item" v-if="link.active.to">
+            {{ymd(link.active.to)}}
+          </div>
+        </div>
+      </div>
+      <div v-if="!isActive(link.active)" class="ui dimmer transition visible active" style="display: block !important; opacity: 0.2; pointer-events: none;"></div>
+    </div>
+`,
   props: {
     link: Object,
     query: String,
