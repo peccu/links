@@ -9,7 +9,27 @@ var filteredList = function(list, query){
 
 // define the item component
 Vue.component('item', {
-  template: '#item-template',
+  template: `
+    <div class="item" v-if="filtered.length > 0 || Object.keys(model.children).length > 0">
+      <div v-if="isFolder" class="header" @click="toggle" @dblclick="changeType" style="cursor: pointer;">
+        <i class="folder icon" :class="{open: isOpen}"></i>
+        {{category}}
+      </div>
+      <div class="list" v-show="isOpen" v-if="isFolder">
+        <item class="item"
+              v-for="(model, category) in model.children"
+              :category="category"
+              :query="query"
+              :setquery="setquery"
+              :model="model">
+        </item>
+        <!-- <li class="add" @click="addChild"><i class="plus icon"></i></li> -->
+      </div>
+      <div class="ui divided list">
+        <item-content class="item" v-show="isOpen" v-for="link in model.contents" :link="link" :query="query" :setquery="setquery"></item-content>
+      </div>
+    </div>
+`,
   props: {
     category: String,
     query: String,
