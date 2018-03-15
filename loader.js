@@ -30,6 +30,7 @@ const loadFrom = function(from){
     {src: from + 'md5.js', useCache: false},
     {src: from + 'rs.js', useCache: false},
     {src: from + 'js/tree-item-content.js', useCache: false},
+    {src: from + 'js/tree-item.js', useCache: false},
     {src: from + 'js/add.js', useCache: false},
     {src: from + 'script.js', useCache: false},
   ];

@@ -7,14 +7,6 @@ var nameMatch = function(target, obj, regex){
   return (target && (obj && obj.name.match(regex)));
 };
 
-var filteredList = function(list, query){
-  return query.split(/ /).reduce(function(acc, e){
-    var filter = linkFilter(e);
-    var filtered = acc.filter(filter);
-    return filtered;
-  }, list);
-};
-
 var ensureNode = function(tree){
   if(!tree){
     tree = {
@@ -58,57 +50,6 @@ const generateTree = function(links){
   });
   return data;
 };
-
-// define the item component
-Vue.component('item', {
-  template: '#item-template',
-  props: {
-    category: String,
-    query: String,
-    setquery: Function,
-    model: Object
-  },
-  data: function () {
-    return {
-      // default collapse/open
-      open: true
-    };
-  },
-  computed: {
-    filtered: function () {
-      return filteredList(this.model.contents, this.query);
-    },
-    isFolder: function () {
-      return (this.model.children &&
-              Object.keys(this.model.children).length) ||
-        (this.model.contents &&
-         this.model.contents.length);
-    },
-    isOpen: function () {
-      return this.open || this.query !== '';
-    }
-  },
-  methods: {
-    toggle: function () {
-      if (this.isFolder) {
-        this.open = !this.open;
-      }
-    },
-    changeType: function () {
-      return;
-      if (!this.isFolder) {
-        Vue.set(this.model, 'children', []);
-        this.addChild();
-        this.open = true;
-      }
-    },
-    addChild: function () {
-      this.model.children.push({
-        name: 'new stuff'
-      });
-    }
-  }
-});
 
 var mountpoint;
 var opt;
@@ -163,7 +104,7 @@ if(window.location.pathname.match(/^\/links\/$/) || window.location.pathname.mat
     },
     computed: {
       filtered: function(){
-        return filteredList(this.state.links, this.query);
+        return window.filteredList(this.state.links, this.query);
       },
       treeData: function(){
         return generateTree(this.state.links);
