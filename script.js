@@ -7,6 +7,24 @@ var nameMatch = function(target, obj, regex){
   return (target && (obj && obj.name.match(regex)));
 };
 
+var parsedLink = (function(){
+  var template = {
+    title: '',
+    url: '',
+    description: '',
+    keyword: '',
+    category: '',
+    active: {
+    },
+    target: '_blank'
+  };
+  return location.search.replace(/^\?/, '').split('&').reduce(function(acc, e){
+    let [ key, value ] = e.split('=');
+    acc[key] = value ? decodeURIComponent(value.replace(/\+/g, ' ')) : '';
+    return acc;
+  }, template);
+})();
+
 var mountpoint;
 var opt;
 if(window.location.pathname.match(/\/add\//)){
@@ -25,7 +43,7 @@ if(window.location.pathname.match(/\/add\//)){
       }
     },
     data: {
-      link: window.parsedLink
+      link: parsedLink
     },
     watch: {
     },

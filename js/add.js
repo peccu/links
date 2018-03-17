@@ -1,22 +1,4 @@
 'use strict';
-var parsedLink = (function(){
-  var template = {
-    title: '',
-    url: '',
-    description: '',
-    keyword: '',
-    category: '[[""]]',
-    active: {
-    },
-    target: '_blank'
-  };
-  return location.search.replace(/^\?/, '').split('&').reduce(function(acc, e){
-    let [ key, value ] = e.split('=');
-    acc[key] = value ? decodeURIComponent(value.replace(/\+/g, ' ')) : '';
-    return acc;
-  }, template);
-})();
-
 var mountpoint = 'add';
 Vue.component('add', {
   template: `
@@ -39,7 +21,7 @@ Vue.component('add', {
             <input placeholder="Keywords" type="text" v-model="link.keyword" @keyup.enter="onSubmit">
           </div>
           <div class="field">
-            <label>Category</label>
+            <label>Category</label> <pre>aaa,bbb!ccc,ddd -> [["aaa","bbb"],["ccc","ddd"]]</pre>
             <input placeholder="Category" type="text" v-model="link.category" @keyup.enter="onSubmit">
           </div>
           <div class="field">
@@ -119,7 +101,7 @@ Vue.component('add', {
           if(link){
             console.log('fetched link', link);
             link.keyword = link.keyword.join(',');
-            link.category = JSON.stringify(link.category);
+            link.category = link.category.map((e) => e.join(',')).join('!');
             view.link = link;
           }else{
             console.log('new link');
@@ -136,8 +118,8 @@ Vue.component('add', {
         });
     },
     onSubmit: function(event){
-      this.link.keyword = this.link.keyword.split(',');
-      this.link.category = JSON.parse(this.link.category.replace(/'/g, '"'));
+      this.link.keyword = this.link.keyword != '' ? this.link.keyword.split(',') : [];
+      this.link.category = this.link.category.match(/!/) ? this.link.category.split('!').map((e) => e.split(',')) : [this.link.category.split(',')];
       this.link.ts = new Date().getTime().toString();
       document.getElementById('submit').classList.add('loading');
       var view = this;
