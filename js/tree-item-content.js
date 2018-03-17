@@ -37,6 +37,11 @@ var linkFilter = function(query){
 Vue.component('itemContent', {
   template: `
     <div class="dimmable" v-if="filter(link)">
+      <div class="right floated content">
+        <button class="ui icon button" @click="isAdd = !isAdd">
+          <i class="edit outline icon"></i>
+        </button>
+      </div>
       <i class="linkify icon"></i>
       <div class="content">
         <a class="header" :href="link.url" :target="link.target">{{link.title}}</a>
@@ -68,6 +73,7 @@ Vue.component('itemContent', {
           </div>
         </div>
       </div>
+      <add v-if="isAdd" :link="link" :noload="true"></add>
       <div v-if="!isActive(link.active)" class="ui dimmer transition visible active" style="display: block !important; opacity: 0.2; pointer-events: none;"></div>
     </div>
 `,
@@ -75,6 +81,11 @@ Vue.component('itemContent', {
     link: Object,
     query: String,
     setquery: Function
+  },
+  data: function(){
+    return {
+      isAdd: false
+    };
   },
   methods: {
     filter: function(link){

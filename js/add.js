@@ -47,7 +47,8 @@ Vue.component('add', {
       </form>
 `,
   props: {
-    link: Object
+    link: Object,
+    noload: Boolean
   },
   components: {
   },
@@ -65,6 +66,9 @@ Vue.component('add', {
   beforeCreate: function(){
   },
   created: function(){
+    if(this.noload){
+      return;
+    }
     var view = this;
     console.log('cre', this.link);
     var cb = function(){
@@ -83,6 +87,7 @@ Vue.component('add', {
   beforeMount: function(){
   },
   mounted: function(){
+    this.load();
   },
   beforeUpdate: function(){
   },
