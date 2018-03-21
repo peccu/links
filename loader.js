@@ -20,6 +20,7 @@ const vendorDir = 'vendor/js/';
 const loadFrom = function(from){
   const parallel = [
     {src: (isLocal ? from + vendorDir : '//cdn.jsdelivr.net/npm/vue@2/dist/') + 'vue.min.js', useCache: true},
+    {src: (isLocal ? from + vendorDir : '//momentjs.com/downloads/') + 'moment.min.js', useCache: true},
     {src: (isLocal ? from + vendorDir : '//cdn.jsdelivr.net/npm/remotestoragejs@1.0.2/release/') + 'remotestorage.min.js', useCache: true},
     {src: (isLocal ? from + vendorDir : '//cdn.jsdelivr.net/npm/remotestorage-widget@1.3.0/build/') + 'widget.min.js', useCache: true},
     {src: (isLocal ? from + vendorDir : '//cdn.jsdelivr.net/npm/jquery@3/dist/') + 'jquery.min.js', useCache: true}

@@ -60,6 +60,9 @@ Vue.component('itemContent', {
             </div>
           </div>
         </div>
+        <div class="extra" v-if="link.ts">
+          {{moment.unix(link.ts/1000).calendar()}}
+        </div>
         <div class="ui horizontal link list" v-if="link.active.from || link.active.to">
           <div class="item">運用期間</div>
           <div class="item" v-if="link.active.from">
