@@ -78,7 +78,16 @@ if(window.location.pathname.match(/^\/links\/$/) || window.location.pathname.mat
     },
     computed: {
       filtered: function(){
-        return window.filteredList(this.state.links, this.query);
+        return window.filteredList(this.state.links, this.query)
+          .slice().sort((a, b) => {
+            if(!b.ts){
+              return -1;
+            }
+            if(!a.ts){
+              return 1;
+            }
+            return b.ts - a.ts;
+          });
       },
       treeData: function(){
         return window.generateTree(this.state.links);
