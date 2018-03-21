@@ -32,7 +32,7 @@ Vue.component('add', {
           </div>
           <div class="field">
             <label>Updated Date</label>
-            <div>{{new Date(parseFloat(link.ts))}}</div>
+            <div>{{link.ts && moment.unix(link.ts/1000).calendar()}}</div>
           </div>
           <div v-if="error" class="ui error message">
             <div class="header">Something is wrong</div>
