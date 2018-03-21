@@ -13,6 +13,10 @@ Vue.component('add', {
             <input placeholder="URL" type="text" v-model="link.url" @keyup.enter="onSubmit">
           </div>
           <div class="field">
+            <label>parameters</label>
+            <input placeholder="parameters" type="text" :value="link.url.split('?')[1]" readonly>
+          </div>
+          <div class="field">
             <label>Description</label>
             <textarea v-model="link.description"></textarea>
           </div>
