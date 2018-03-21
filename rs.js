@@ -73,6 +73,8 @@
 
   const setUpStorage = function(selector, getAll){
     const remoteStorage = new RemoteStorage();
+    remoteStorage.setSyncInterval(60000);
+    remoteStorage.setBackgroundSyncInterval(600000);
     remoteStorage.addModule(Links);
     remoteStorage.access.claim('links', 'rw');
     const widget = new Widget(remoteStorage);
