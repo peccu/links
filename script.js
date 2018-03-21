@@ -18,11 +18,7 @@ var parsedLink = (function(){
     },
     target: '_blank'
   };
-  return location.search.replace(/^\?/, '').split('&').reduce(function(acc, e){
-    let [ key, value ] = e.split('=');
-    acc[key] = value ? decodeURIComponent(value.replace(/\+/g, ' ')) : '';
-    return acc;
-  }, template);
+  return window.parseParameters(location.search, template);
 })();
 
 var mountpoint;
