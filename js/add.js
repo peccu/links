@@ -21,7 +21,9 @@ Vue.component('add', {
             <input placeholder="Keywords" type="text" v-model="link.keyword" @keyup.enter="onSubmit">
           </div>
           <div class="field">
-            <label>Category</label> <pre>aaa,bbb!ccc,ddd -> [["aaa","bbb"],["ccc","ddd"]]</pre>
+            <label>Category</label> <pre>aaa,bbb!ccc,ddd
+↓
+[["aaa","bbb"],["ccc","ddd"]]</pre>
             <input placeholder="Category" type="text" v-model="link.category" @keyup.enter="onSubmit">
           </div>
           <div class="field">
