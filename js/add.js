@@ -14,6 +14,7 @@ Vue.component('add', {
           </div>
           <div class="field">
             <label>parameters</label>
+            <div v-if="link.url.split('?')[1]" class="ui button" @click="clearParameters" id="clear-parameters">Clear</div>
             <input placeholder="parameters" type="text" :value="link.url.split('?')[1]" readonly>
           </div>
           <div class="field">
@@ -104,6 +105,10 @@ Vue.component('add', {
   destroyed: function(){
   },
   methods: {
+    clearParameters: function(event){
+      this.link.url = this.link.url.split('?')[0];
+      return false;
+    },
     load: function(){
       console.log('fetch link', this.link.url);
       var view = this;
