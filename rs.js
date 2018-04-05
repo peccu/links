@@ -121,7 +121,7 @@
     },
     getAction(url){
       if(this.debug){
-        console.log('getAction called');
+        console.log('getAction called', url);
       }
       return this.storage.links.get(url);
     },
