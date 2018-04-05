@@ -23,7 +23,7 @@ Vue.component('add', {
           </div>
           <div class="field">
             <label>Keywords</label>
-            <input placeholder="Keywords" type="text" v-model="link.keyword" @keyup.enter="onSubmit">
+            <input placeholder="Keywords" type="text" v-model="link.keyword" @keyup.enter="onSubmit" autofocus>
           </div>
           <div class="field">
             <label>Category</label> <pre>aaa,bbb!ccc,ddd
