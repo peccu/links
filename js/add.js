@@ -23,7 +23,7 @@ Vue.component('add', {
           </div>
           <div class="field">
             <label>Keywords</label>
-            <input placeholder="Keywords" type="text" v-model="link.keyword" @keyup.enter="onSubmit" autofocus>
+            <input placeholder="Keywords" type="text" v-model="link.keyword" @keyup.enter="onSubmit" @change="formatKeyword" autofocus>
           </div>
           <div class="field">
             <label>Category</label> <pre>aaa,bbb!ccc,ddd
@@ -152,6 +152,9 @@ Vue.component('add', {
           document.getElementById('submit').classList.remove('loading');
           view.error = JSON.stringify(err);
         });
+    },
+    formatKeyword: function(event){
+      this.link.keyword = _.toLower(this.link.keyword.replace(/ *, */g, ','));
     },
     close: function(event){
       window.close();
