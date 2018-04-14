@@ -135,7 +135,9 @@ Vue.component('add', {
     },
     onSubmit: function(event){
       this.link.keyword = this.link.keyword != '' ? this.link.keyword.split(',') : [];
-      this.link.category = this.link.category.match(/!/) ? this.link.category.split('!').map((e) => e.split(',')) : [this.link.category.split(',')];
+      this.link.category = this.link.category.match(/!/) ?
+        this.link.category.split('!').map((e) => e.match(/,/) ? e.split(',') : [e]) :
+        [this.link.category.match(/,/) ? this.link.category.split(',') : [this.link.category]];
       this.link.ts = new Date().getTime().toString();
       document.getElementById('submit').classList.add('loading');
       var view = this;
