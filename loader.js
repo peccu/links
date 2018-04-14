@@ -25,6 +25,7 @@ const loadFrom = function(from){
     {src: (isLocal ? from + vendorDir : '//cdn.jsdelivr.net/npm/remotestorage-widget@1.3.0/build/') + 'widget.min.js', useCache: true},
     {src: (isLocal ? from + vendorDir : '//cdn.jsdelivr.net/npm/jquery@3/dist/') + 'jquery.min.js', useCache: true},
     {src: (isLocal ? from + vendorDir : '//cdn.jsdelivr.net/npm/marked/') + 'marked.min.js', useCache: true},
+    {src: (isLocal ? from + vendorDir : '//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.12.0/build/') + 'highlight.min.js', useCache: true},
     {src: (isLocal ? from + vendorDir : '//cdn.jsdelivr.net/npm/lodash@4.17.5/') + 'lodash.min.js', useCache: true}
   ];
   var finish = parallel.length;
@@ -33,6 +34,7 @@ const loadFrom = function(from){
     {src: from + 'md5.js', useCache: false},
     {src: from + 'rs.js', useCache: false},
     {src: from + 'js/url.js', useCache: false},
+    {src: from + 'js/marked.js', useCache: false},
     {src: from + 'js/tree-item-content.js', useCache: false},
     {src: from + 'js/tree-item.js', useCache: false},
     {src: from + 'js/tree.js', useCache: false},
