@@ -46,7 +46,7 @@ Vue.component('itemContent', {
       <div class="content">
         <a class="header" :href="link.url" :target="link.target">{{link.title}}</a>
         <div class="description">
-          <div v-html="link.description"></div>
+          <div v-html="marked(link.description)"></div>
           <div class="ui">
             <a v-for="key in link.keyword" class="ui tiny tag label" @click="addTag(key)">{{key}}</a>
           </div>
