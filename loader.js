@@ -35,6 +35,7 @@ const loadFrom = function(from){
     {src: from + 'rs.js', useCache: false},
     {src: from + 'js/url.js', useCache: false},
     {src: from + 'js/marked.js', useCache: false},
+    {src: from + 'js/cp.js', useCache: false},
     {src: from + 'js/tree-item-content.js', useCache: false},
     {src: from + 'js/tree-item.js', useCache: false},
     {src: from + 'js/tree.js', useCache: false},

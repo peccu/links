@@ -75,6 +75,14 @@ Vue.component('itemContent', {
             {{ymd(link.active.to)}}
           </div>
         </div>
+        <div class="extra">
+          <button class="ui icon button" @click="copyMd(link)">
+            <i class="clipboard icon"></i> Markdown
+          </button>
+          <button class="ui icon button" @click="copyOrg(link)">
+            <i class="clipboard icon"></i> Org
+          </button>
+        </div>
       </div>
       <add v-if="isAdd" :link="link" :noload="true"></add>
       <div v-if="!isActive(link.active)" class="ui dimmer transition visible active" style="display: block !important; opacity: 0.2; pointer-events: none;"></div>
@@ -111,6 +119,14 @@ Vue.component('itemContent', {
       let from = !active.from || (new Date(active.from)) <= today;
       let to = !active.to || today <= (new Date(active.to));
       return from && to;
+    },
+    copyMd: function(link){
+      copy(`[${link.title}](${link.url})`);
+      return false;
+    },
+    copyOrg: function(link){
+      copy(`[[${link.url}][${link.title}]]`);
+      return false;
     },
     ymd: ymd
   }
