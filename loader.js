@@ -33,6 +33,7 @@ const loadFrom = function(from){
     {src: (isLocal ? from + vendorDir : '//cdn.jsdelivr.net/npm/semantic-ui@2/dist/') + 'semantic.min.js', useCache: true},
     {src: from + 'md5.js', useCache: false},
     {src: from + 'rs.js', useCache: false},
+    {src: from + 'js/moment.js', useCache: false},
     {src: from + 'js/url.js', useCache: false},
     {src: from + 'js/marked.js', useCache: false},
     {src: from + 'js/cp.js', useCache: false},
