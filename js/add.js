@@ -83,7 +83,8 @@ Vue.component('add', {
       console.log('setup completed. Now fetching.');
       view.load(view.link.url)
         .then(function(){
-          if(view.link.keyword == ''){
+          var link = view.parseParam(window.location.search);
+          if(link.keyword == ''){
             return;
           }
           view.onSubmit().then(view.close);
