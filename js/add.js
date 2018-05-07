@@ -162,7 +162,7 @@ Vue.component('add', {
       var view = this;
       return window.LinkStore.addLinksAction(this.link)
         .then(() => {
-          console.log('success in addLinksAction');
+          console.log('success in onSubmit');
           document.getElementById('submit').classList.remove('loading');
           view.success = true;
           Vue.nextTick(function(){
