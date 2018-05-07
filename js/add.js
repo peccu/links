@@ -95,7 +95,6 @@ Vue.component('add', {
   beforeMount: function(){
   },
   mounted: function(){
-    this.load();
   },
   beforeUpdate: function(){
   },
