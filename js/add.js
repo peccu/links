@@ -81,7 +81,13 @@ Vue.component('add', {
     console.log('cre', this.link);
     var cb = function(){
       console.log('setup completed. Now fetching.');
-      view.load(view.link.url);
+      view.load(view.link.url)
+        .then(function(){
+          if(view.link.keyword == ''){
+            return;
+          }
+          view.onSubmit().then(view.close);
+        });
     };
     window.LinkStore.setup(cb);
     window.setTimeout(() => {
@@ -125,11 +131,11 @@ Vue.component('add', {
     load: function(){
       console.log('fetch link', this.link.url);
       var view = this;
-      window.LinkStore.getAction(this.link.url)
+      return window.LinkStore.getAction(this.link.url)
         .then((link) => {
           if(link){
             console.log('fetched link', link);
-            link.keyword = link.keyword.join(',');
+            link.keyword = view.link.keyword ? _.union(view.link.keyword.split(','), link.keyword).join(',') : link.keyword.join(',');
             link.category = link.category.map((e) => e.join(',')).join('!');
             view.link = link;
           }else{
@@ -154,7 +160,7 @@ Vue.component('add', {
       this.link.ts = new Date().getTime().toString();
       document.getElementById('submit').classList.add('loading');
       var view = this;
-      window.LinkStore.addLinksAction(this.link)
+      return window.LinkStore.addLinksAction(this.link)
         .then(() => {
           console.log('success in addLinksAction');
           document.getElementById('submit').classList.remove('loading');

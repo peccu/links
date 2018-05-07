@@ -21,7 +21,7 @@ if(window.location.pathname.match(/\/add\//)){
     computed: {
       bookmarklet: function(){
         var base = location.origin + location.pathname;
-        return "javascript:window.open('" + base + "?title='+encodeURIComponent(document.title)+'&url='+encodeURIComponent(location.href))";
+        return "javascript:var keyword=window.prompt('Please input keywords.\\n(comma seperated)','keyword');window.open('" + base + "?title='+encodeURIComponent(document.title)+'&url='+encodeURIComponent(location.href))+(keyword?'&keyword='+keyword:'')";
       }
     },
     data: {
