@@ -7,20 +7,6 @@ var nameMatch = function(target, obj, regex){
   return (target && (obj && obj.name.match(regex)));
 };
 
-var parsedLink = (function(){
-  var template = {
-    title: '',
-    url: '',
-    description: '',
-    keyword: '',
-    category: '',
-    active: {
-    },
-    target: '_blank'
-  };
-  return window.parseParameters(location.search, template);
-})();
-
 var mountpoint;
 var opt;
 if(window.location.pathname.match(/\/add\//)){
@@ -39,7 +25,6 @@ if(window.location.pathname.match(/\/add\//)){
       }
     },
     data: {
-      link: parsedLink
     },
     watch: {
     },

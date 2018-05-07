@@ -54,7 +54,6 @@ Vue.component('add', {
       </form>
 `,
   props: {
-    link: Object,
     noload: Boolean
   },
   components: {
@@ -63,6 +62,7 @@ Vue.component('add', {
   },
   data: function(){
     return {
+      link: {},
       linkLoaded: false,
       error: '',
       success: false
@@ -76,6 +76,7 @@ Vue.component('add', {
     if(this.noload){
       return;
     }
+    this.link = this.parseParam(window.location.search);
     var view = this;
     console.log('cre', this.link);
     var cb = function(){
@@ -105,6 +106,19 @@ Vue.component('add', {
   destroyed: function(){
   },
   methods: {
+    parseParam: function(search){
+      var template = {
+        title: '',
+        url: '',
+        description: '',
+        keyword: '',
+        category: '',
+        active: {
+        },
+        target: '_blank'
+      };
+      return window.parseParameters(search, template);
+    },
     clearParameters: function(event){
       this.link.url = this.link.url.split('?')[0];
       return false;
