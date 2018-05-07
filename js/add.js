@@ -164,6 +164,8 @@ Vue.component('add', {
         .then(() => {
           console.log('success in onSubmit');
           document.getElementById('submit').classList.remove('loading');
+          view.link.keyword = view.link.keyword.join(',');
+          view.link.category = view.link.category.map((e) => e.join(',')).join('!');
           view.success = true;
           Vue.nextTick(function(){
             document.getElementById('close').focus();
