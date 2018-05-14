@@ -26,16 +26,6 @@ Vue.component('add', {
             <input placeholder="Keywords" type="text" v-model="link.keyword" @keyup.enter="onSubmit" @change="formatKeyword" autofocus>
           </div>
           <div class="field">
-            <label>Category</label> <pre>aaa,bbb!ccc,ddd
-↓
-[["aaa","bbb"],["ccc","ddd"]]</pre>
-            <input placeholder="Category" type="text" v-model="link.category" @keyup.enter="onSubmit">
-          </div>
-          <div class="field">
-            <label>Target</label>
-            <input placeholder="Target" type="text" v-model="link.target" @keyup.enter="onSubmit">
-          </div>
-          <div class="field">
             <label>Updated Date</label>
             <div>{{link.ts && moment.unix(link.ts/1000).calendar()}}</div>
           </div>
