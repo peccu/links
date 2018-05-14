@@ -41,7 +41,7 @@
       <div class="ui top attached">
         <div class="ui center aligned container">
           <div class="ui icon input">
-            <input placeholder="Filter..." type="text" v-model="query" autofocus>
+            <input placeholder="Filter..." type="text" v-model.lazy="query" autofocus>
             <i class="search icon"></i>
           </div>
           <div class="ui submit button" id="reload" @click="reload">reload</div>
