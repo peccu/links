@@ -54,6 +54,7 @@ Vue.component('add', {
       </form>
 `,
   props: {
+    link: Object,
     noload: Boolean
   },
   components: {
@@ -74,6 +75,10 @@ Vue.component('add', {
   },
   created: function(){
     if(this.noload){
+      return;
+    }
+    if(this.link && this.link.url != ''){
+      console.log('in list? already link has set.', this.link);
       return;
     }
     this.link = this.parseParam(window.location.search);
