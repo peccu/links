@@ -56,14 +56,14 @@
         </div>
         <div class="ui active tab" data-tab="search">
 
-          <div class="ui relaxed divided list">
+          <div class="ui relaxed divided items">
             <item-content class="item" v-for="link in filtered" :link="link" :query="query" :setquery="setquery"></item-content>
           </div>
 
         </div>
         <div class="ui tab" data-tab="category">
 
-          <div class="ui list">
+          <div class="ui items">
             <item class="item"
                   :category="category"
                   :query="query"

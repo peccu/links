@@ -37,19 +37,18 @@ var linkFilter = function(query){
 Vue.component('itemContent', {
   template: `
     <div class="dimmable" v-if="filter(link)">
-      <div class="right floated content">
-        <button class="ui icon button" @click="isAdd = !isAdd">
-          <i class="edit outline icon"></i>
-        </button>
-      </div>
-      <i class="linkify icon"></i>
       <div class="content">
-        <a class="header" :href="link.url" :target="link.target">{{link.title}}</a>
+        <div class="header">
+          <i class="linkify icon"></i>
+          <a :href="link.url" :target="link.target">{{link.title}}</a>
+        </div>
         <div class="description">
-          <div v-html="marked(link.description)"></div>
-          <div class="ui">
-            <a v-for="key in link.keyword" class="ui tiny tag label" @click="addTag(key)">{{key}}</a>
+          <div class="ui tiny tag labels" style="margin: 0.3em;">
+            <a v-for="key in link.keyword" class="ui image label" @click="addTag(key)">
+              {{key}}
+            </a>
           </div>
+          <div v-html="marked(link.description)"></div>
 
           <div class="ui breadcrumb" style="margin: 10px 0px">
             <div v-for="path in link.category">
@@ -82,6 +81,11 @@ Vue.component('itemContent', {
           <button class="ui icon button" @click="copyOrg(link)">
             <i class="clipboard icon"></i> Org
           </button>
+          <div class="right floated content">
+            <button class="ui icon button" @click="isAdd = !isAdd">
+              <i class="edit outline icon"></i>
+            </button>
+          </div>
         </div>
       </div>
       <add v-if="isAdd" :link="link" :noload="true"></add>
