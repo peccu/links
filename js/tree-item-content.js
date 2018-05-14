@@ -37,6 +37,9 @@ var linkFilter = function(query){
   };
 };
 
+const tagImages = {
+};
+
 // define the item component
 Vue.component('itemContent', {
   template: `
@@ -50,6 +53,7 @@ Vue.component('itemContent', {
           <div>{{domain(link.url)}}</div>
           <div class="ui tiny tag labels" style="margin: 0.3em;">
             <a v-for="key in link.keyword" class="ui image label" @click="addTag(key)">
+              <img v-if="tagImages[key]" :src="tagImages[key]"/>
               {{key}}
             </a>
           </div>
@@ -104,7 +108,8 @@ Vue.component('itemContent', {
   },
   data: function(){
     return {
-      isAdd: false
+      isAdd: false,
+      tagImages: tagImages
     };
   },
   methods: {
