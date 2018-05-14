@@ -10,6 +10,10 @@ var ymd = function(date){
     + zerofill(d.getDate());
 };
 
+var domain = function(url){
+  return url.match(/^https?:\/\/(.*?)\//).pop();
+};
+
 var linkFilter = function(query){
   var regex = new RegExp(query, 'ig');
   if(query === ''){
@@ -43,6 +47,7 @@ Vue.component('itemContent', {
           <a :href="link.url" :target="link.target">{{link.title}}</a>
         </div>
         <div class="description">
+          <div>{{domain(link.url)}}</div>
           <div class="ui tiny tag labels" style="margin: 0.3em;">
             <a v-for="key in link.keyword" class="ui image label" @click="addTag(key)">
               {{key}}
@@ -132,6 +137,7 @@ Vue.component('itemContent', {
       copy(`[[${link.url}][${link.title}]]`);
       return false;
     },
+    domain: domain,
     ymd: ymd
   }
 });
