@@ -51,7 +51,7 @@ Vue.component('itemContent', {
         </div>
         <div class="description">
           <div>{{domain(link.url)}}</div>
-          <div class="ui tiny tag labels" style="margin: 0.3em;">
+          <div class="ui tag labels" style="margin: 0.3em;">
             <a v-for="key in link.keyword" class="ui image label" @click="addTag(key)">
               <img v-if="tagImages[key]" :src="tagImages[key]"/>
               {{key}}
