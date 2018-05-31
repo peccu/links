@@ -1,6 +1,9 @@
 'use strict';
 const renderer = new marked.Renderer();
 renderer.code = (code, fileInfo) => {
+  if(!fileInfo){
+    return `<pre><code class="hljs">code</code></pre>`;
+  }
   // https://qiita.com/59naga/items/7d46155715416561aa60
   var delimiter = ':';
   var info = fileInfo.split(delimiter);

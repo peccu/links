@@ -11,7 +11,11 @@ var ymd = function(date){
 };
 
 var domain = function(url){
-  return url.match(/^https?:\/\/(.*?)\//).pop();
+  var match = url.match(/^https?:\/\/(.*?)\//);
+  if(match.length == 0){
+    return '';
+  }
+  return match.pop();
 };
 
 var linkFilter = function(query){
