@@ -12,7 +12,7 @@ var ymd = function(date){
 
 var domain = function(url){
   var match = url.match(/^https?:\/\/(.*?)\//);
-  if(match.length == 0){
+  if(!match || match.length == 0){
     return '';
   }
   return match.pop();
