@@ -177,7 +177,9 @@ Vue.component('add', {
       this.link.keyword = _.toLower(this.link.keyword.replace(/ *, */g, ','));
     },
     close: function(event){
-      window.close();
+      window.setTimeout(() => {
+        window.close();
+      }, 1000);
     }
   }
 });
