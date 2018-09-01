@@ -92,7 +92,7 @@
 
     remoteStorage.on('network-online', () => {
       console.debug(`Hooray, we're back online.`);
-      return getAll();
+      // return getAll();
     });
 
     return remoteStorage;
